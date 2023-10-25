@@ -73,7 +73,7 @@ Para recriar o ambiente, siga estas etapas:
 3. Inicie o ambiente Docker usando o arquivo `docker-compose.yml`:
 
    ```
-   docker-compose up -d
+   docker-compose up
    ```
 
 ## Executando o Projeto

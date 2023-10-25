@@ -73,7 +73,6 @@ docs/_build/
 
 # PyBuilder
 .pybuilder/
-target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -152,9 +151,38 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# PyCharm
-#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#  and can be added to the global gitignore or merged into this file.  For a more nuclear
-#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#.idea/
+# macOS
+.DS_Store
+
+# sbt specific
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+project/local-plugins.sbt
+.history
+.ensime
+.ensime_cache/
+.sbt-scripted/
+local.sbt
+
+# Bloop
+.bsp
+
+# VS Code
+.vscode/
+
+# Metals
+.bloop/
+.metals/
+metals.sbt
+
+# IDEA
+.idea
+.idea_modules
+/.worksheet/
+
+# Jar Package
+!scala-code/target/scala-2.12/myscalaclass_2.12-2.0.jar

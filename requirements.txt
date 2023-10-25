@@ -1,0 +1,6 @@
+confluent_kafka==2.2.0
+urllib3
+requests
+avro
+fastavro
+pyspark==3.5.0

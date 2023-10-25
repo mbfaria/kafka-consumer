@@ -1,4 +1,5 @@
 from pyspark.sql import SparkSession, SQLContext, DataFrame
+from pyspark.sql.column import Column, _to_java_column, _to_seq
 from pyspark.sql.functions import col, substring, conv, hex, expr
 from pyspark.sql.avro.functions import from_avro
 from confluent_kafka.schema_registry import SchemaRegistryClient
@@ -42,6 +43,11 @@ def run_scala_function(df, column_name):
     return DataFrame(scalaObject.myScalaFunction(column_name), ssqlContext)
 
 
+def run_scala_udf(col):
+    scalaObject = sc._jvm.simple.MyScalaObject.myScalaUDF()
+    return Column(scalaObject.apply(_to_seq(sc, [col], _to_java_column)))
+
+
 def consumer(batch_df, _):
     batch_df = batch_df.withColumn(
         "schema_id", conv(hex(substring(col("value"), 2, 4)), 16, 10)
@@ -66,6 +72,7 @@ def consumer(batch_df, _):
     result_df = run_scala_function(result_df, "value.id_order")
     result_df = run_scala_function(result_df, "value.id_customer")
     result_df = run_scala_function(result_df, "topic")
+    result_df = result_df.withColumn("new_price", run_scala_udf("value.vl_price"))
     result_df.show(50, vertical=True, truncate=False)
     return result_df
 
